@@ -91,12 +91,3 @@ void Fraction::setDenominator(int value)
 	}
 }
 
-bool Fraction:: operator == (const Fraction other)
-{
-	return(m_numerator == other.m_numerator && m_denominator == other.m_denominator);
-}
-
-bool Fraction:: operator != (const Fraction other)
-{
-	return !operator == (other);
-}
