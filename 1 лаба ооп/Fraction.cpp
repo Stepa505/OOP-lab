@@ -44,50 +44,60 @@ Fraction::Fraction()
 	m_denominator = 1;
 }
 
-Fraction::Fraction(int numerator, int denominator){
+Fraction::Fraction(int numerator, int denominator) {
 	: m_numerator(numerator)
-{
-
-	if (denominator == 0)
 	{
-		std::cerr << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.\n";
+
+		if (denominator == 0)
+		{
+			std::cerr << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.\n";
+		}
+		else
+		{
+			m_denominator = denominator;
+		}
+		if (denominator < 0)
+		{
+			m_denominator *= -1;
+			m_numerator *= -1;
+		}
+
 	}
-	else
+
+	int Fraction::getNumerator()const
 	{
-		m_denominator = denominator;
+		return m_numerator;
 	}
-	if (denominator < 0)
+
+	int Fraction::getDenominator()const
 	{
-		m_denominator *= -1;
-		m_numerator *= -1;
+		return m_denominator;
 	}
 
-}
-
-int Fraction::getNumerator()const
-{
-	return m_numerator;
-}
-
-int Fraction::getDenominator()const
-{
-	return m_denominator;
-}
-
-void Fraction::setNumerator(const int value)
-{
-	m_numerator = value;
-}
-
-void Fraction::setDenominator(int value)
-{
-	if (value == 0)
+	void Fraction::setNumerator(const int value)
 	{
-		std::cout << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.";
-		m_denominator = 1;
+		m_numerator = value;
 	}
-	else {
-		m_denominator = value;
+
+	void Fraction::setDenominator(int value)
+	{
+		if (value == 0)
+		{
+			std::cout << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.";
+			m_denominator = 1;
+		}
+		else {
+			m_denominator = value;
+		}
 	}
 }
+
+bool Fraction::operator==(Fraction other) {
+	return (n_numerator == other.n_numerator && n_denominator == other.n_denominator);
+}
+
+bool Fraction::operator!=(Fraction other) {
+	return !operator==(other);
+}
+
 
