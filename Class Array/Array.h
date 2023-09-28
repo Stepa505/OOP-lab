@@ -10,6 +10,8 @@ public:
 
 	int size() const;
 
+	void find(const int element);
+
 	int &operator[](const int index);
 
 	const int& operator[](const int index) const;

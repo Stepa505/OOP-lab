@@ -46,6 +46,15 @@ int Array::size() const {
 	return m_size;
 }
 
+void Array::find(const int element) {
+	for (int i = 0; i < m_size; i++) {
+		if (m_array[i] == element) {
+			std::cout << i << ' ' << m_array[i] << std::endl;
+			break;
+		}
+	}
+}
+
 int& Array::operator[](const int index) {
 	assert(index >= 0 && index < m_size);
 	return m_array[index];
