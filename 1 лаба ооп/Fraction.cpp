@@ -133,4 +133,23 @@ Fraction Fraction::operator /(const Fraction other)const {
 	return Div(other);
 }
 
+Fraction Fraction::Exp(const int n) const{
+	Fraction c;
+	int a = c.m_numerator, b = c.m_denominator;
+	if (n > 0) {
+		for (int i = 0; i < n; i++) {
+			c.m_numerator *= a;
+			c.m_denominator *= b;
+		}
+	}
+	else if (n < 0) {
+		c.m_numerator = b;
+		c.m_denominator = a;
+		for (int i = 0; i < n; i++) {
+			c.m_denominator *= a;
+		}
+	}
+	return c;
+}
+
 
