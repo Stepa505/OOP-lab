@@ -4,12 +4,6 @@
 #include <stdio.h>
 #include "Fraction.h"
 
-Fraction::Fraction()
-{
-	m_numerator = 1;
-	m_denominator = 1;
-}
-
 Fraction::Fraction(const int numerator,const int denominator)
 	: m_numerator(numerator){
 
@@ -30,7 +24,7 @@ Fraction::Fraction(const int numerator,const int denominator)
 	}
 
 void Fraction::print() const {
-
+	std::cout << m_numerator << '/' << m_denominator << std::endl;
 }
 
 void Fraction::input() {
@@ -85,7 +79,7 @@ Fraction Fraction::Sub(const Fraction& k) const {
 Fraction Fraction::Multi(const Fraction& k) const {
 	Fraction c;
 	c.m_numerator = m_numerator * k.m_numerator;
-	c.m_denominator = m_denominator * f.m_denominator;
+	c.m_denominator = m_denominator * k.m_denominator;
 	return c;
 }
 
@@ -133,11 +127,13 @@ Fraction Fraction::operator /(const Fraction other)const {
 	return Div(other);
 }
 
-Fraction Fraction::Exp(const int n) const{
+Fraction Fraction::Exp(const int n) {
 	Fraction c;
-	int a = c.m_numerator, b = c.m_denominator;
+	int a = m_numerator, b = m_denominator;
+	c.m_numerator = m_numerator;
+	c.m_denominator = m_denominator;
 	if (n > 0) {
-		for (int i = 0; i < n; i++) {
+		for (int i = 1; i < n; i++) {
 			c.m_numerator *= a;
 			c.m_denominator *= b;
 		}
@@ -145,7 +141,8 @@ Fraction Fraction::Exp(const int n) const{
 	else if (n < 0) {
 		c.m_numerator = b;
 		c.m_denominator = a;
-		for (int i = 0; i < n; i++) {
+		int m = -n;
+		for (int i = 1; i < m; i++) {
 			c.m_denominator *= a;
 		}
 	}
