@@ -16,15 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Fraction.cpp">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="bebebe.cpp">
-      <Filter>Файлы заголовков</Filter>
+    <ClCompile Include="FractionMain.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fraction.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

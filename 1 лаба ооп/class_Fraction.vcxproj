@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b3e9c136-51d4-489b-ae11-dac34cda80a5}</ProjectGuid>
-    <RootNamespace>Fraction</RootNamespace>
+    <ProjectGuid>{0b01f34a-7669-4d9d-b00e-511313fc119c}</ProjectGuid>
+    <RootNamespace>classFraction</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,8 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bebebe.cpp" />
     <ClCompile Include="Fraction.cpp" />
+    <ClCompile Include="FractionMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fraction.h" />
