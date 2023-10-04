@@ -152,4 +152,14 @@ Fraction Fraction::Exp(const int n) const{
 	return c;
 }
 
+int Fraction::GCD() {
+	if (m_numerator == 0) return 1;
+	while (m_numerator != m_denominator) {
+		if (m_numerator > m_denominator) m_numerator -= m_denominator;
+		else m_denominator -= m_numerator;
+	}
+	if (m_numerator > m_denominator) return m_denominator;
+	else return m_numerator;
+}
+
 
