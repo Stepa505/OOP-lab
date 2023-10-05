@@ -111,4 +111,5 @@ int main(){
 	arr_out(max_way, cities);
 	for (int i = 0; i < cities; i++) delete[] ways_matr[i];
 	delete[] ways_matr;
+	delete[] min_way, max_way;
 }
