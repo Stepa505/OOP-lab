@@ -3,23 +3,26 @@
 #include "Array.h"
 
 double calculateAvg(Array arr) {
-	double avg = 0;
 	
 	if (arr.size() == 0) {
 		return 0;
 	}
 
-	for (int i = 0; i < arr.size(); ++i) {
-		avg += arr[i];
+	double avg = 0;
+
+	//for (int i = 0; i < arr.size(); ++i) {
+	//	avg += arr[i];
+	//}
+	for (const int& element : arr) {
+		avg += element;
 	}
 
 	avg /= arr.size();
 	return avg;
-
 }
 
 int main() {
-	Array arr(10, 3);
+	Array arr(10, 0);
 	std::cout << arr[3] << ' ' << arr[9] << std::endl;
 
 	std::cout << calculateAvg(arr) << "\n";
