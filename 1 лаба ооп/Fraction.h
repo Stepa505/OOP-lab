@@ -12,13 +12,9 @@ public:
 
 	~Fraction() = default;
 
-	Fraction sum(Fraction const b);
-
 	void print() const;
 
 	void input();
-
-	Fraction sub(Fraction const a);
 
 	int getNumerator();
 
@@ -36,7 +32,11 @@ public:
 
 	Fraction Div(const Fraction& k) const;
 
-	void reduce();
+	Fraction Exp(const int n) ;
+	
+	Fraction reduction();
+
+	int GCD();
 
 	bool operator == (const Fraction other) const;
 
@@ -54,4 +54,6 @@ public:
 
 	Fraction operator /(const Fraction other)const;
 
+	Fraction operator =(const Fraction other)const;
+	
 };

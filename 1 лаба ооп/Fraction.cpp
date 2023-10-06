@@ -33,7 +33,7 @@ void Fraction::input() {
 	std::cout << "/";
 	std::cin >> m_denominator;
 	while (m_denominator == 0) {
-		std::cout << ("Denominator can`t be zero! Please, enter a vallid denominator: ");
+		std::cerr << "Denominator can`t be zero! Please, enter a vallid denominator: ";
 		std::cin >> m_denominator;
 
 	}
@@ -54,7 +54,7 @@ void Fraction::setNumerator(const int value){
 void Fraction::setDenominator(const int value) {
 	if (value == 0)
 	{
-		std::cout << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.";
+		std::cerr << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.";
 		m_denominator = 1;
 	}
 	else {
@@ -157,6 +157,15 @@ int Fraction::GCD() {
 	}
 	if (m_numerator > m_denominator) return m_denominator;
 	else return m_numerator;
+}
+
+Fraction Fraction::reduction() {
+	Fraction c;
+	c.m_numerator = m_numerator;
+	c.m_denominator = m_denominator;
+	m_numerator = m_numerator / c.GCD();
+	m_denominator = m_denominator / c.GCD();
+	return *this;
 }
 
 
