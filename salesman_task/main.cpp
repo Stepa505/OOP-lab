@@ -3,6 +3,13 @@
 #include <math.h>
 #include <algorithm>
 
+void Swap(int& a, int& b) {
+	int c;
+	c = b;
+	b = a;
+	a = c;
+}
+
 void Rand_Matr(int** matr, int m) {
 	srand(time(0));
 	for (int i = 0; i < m; i++)
@@ -23,6 +30,22 @@ void arr_out(int* a, int n) {
 	for (int i = 0; i < n; i++) {
 		std::cout << a[i] << " ";
 	}
+}
+
+bool Permutation(int n, int* arr)
+{
+	int i = n - 2;
+	while (i != 0 && arr[i] >= arr[i + 1]) i--;//12341 12431 13421
+	if (i == 0) return false;
+	int j = n - 1;
+	while (arr[i] >= arr[j]) j--;
+
+	Swap(arr[i], arr[j]);
+	int k, l;
+
+	for (k = i + 1, l = n - 1; i <= n / 2 && k < l; k++, l--)
+		Swap(arr[k], arr[l]);
+	return true;
 }
 
 void mway_found(int** matr, int cities, int st_city, int* min_way, int* max_way, int& min_cost, int& max_cost) {
@@ -63,7 +86,7 @@ void mway_found(int** matr, int cities, int st_city, int* min_way, int* max_way,
 				max_cost_path[i] = path[i];
 			}
 		}
-	} while (std::next_permutation(path, path + cities - 1));
+	} while (Permutation(cities - 1, path));
 
 	max_cost = max;
 	min_cost = min;
