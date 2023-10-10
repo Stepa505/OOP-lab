@@ -56,8 +56,8 @@ void mway_found(int** matr, int cities, int st_city, int* min_way, int* max_way,
 		}
 	}
 
-	int min = 10000;
-	int max = -10000;
+	int min = 2147483647;
+	int max = -2147483647;
 	int* min_cost_path = new int[cities];
 	int* max_cost_path = new int[cities];
 
@@ -101,7 +101,7 @@ void mway_found(int** matr, int cities, int st_city, int* min_way, int* max_way,
 		max_way[i + 1] = max_cost_path[i] + 1;
 	}
 
-	delete[] min_cost_path;
+	delete[] min_cost_path, max_cost_path;
 
 	delete[] path;
 }
