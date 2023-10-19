@@ -36,6 +36,8 @@ public:
 	
 	Fraction reduction();
 
+	Fraction reverse()const;
+
 	int GCD();
 
 	bool operator == (const Fraction other) const;
