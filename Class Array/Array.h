@@ -1,4 +1,6 @@
 #pragma once
+#include<iostream>
+#include<assert.h>
 
 class Array {
 public:
@@ -11,11 +13,17 @@ public:
 
 	int size() const;
 
-	void find(const int element);
+	void resize(const int size);
+
+	int find(const int element);
 
 	void swap(Array& other);
 
-	int &operator[](const int index);
+	bool del_el_value(int n);
+
+	bool del_el_index(int i);
+
+	bool insert_value(int i, const int& value);
 
 	const int& operator[](const int index) const;
 

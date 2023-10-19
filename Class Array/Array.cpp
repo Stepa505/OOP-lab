@@ -46,14 +46,49 @@ int Array::size() const {
 	return m_size;
 }
 
-void Array::find(const int element) {
+int Array::resize(const int size) {
+	if (size < 0)
+	{
+		std::cerr << "Array::Array: size is negative, invert... \n";
+		m_size = -size;
+	}
+
+	Array res(size);
+	int count = std::min(m_size, size);
+
+	for (int i = 0; i < count; ++i)
+	{
+		res.m_array[i] = m_array[i];
+	}
+
+	res.swap(*this);
+}
+
+int Array::find(const int element) {
 	for (int i = 0; i < m_size; i++) {
 		if (m_array[i] == element) {
-			std::cout << i << ' ' << m_array[i] << std::endl;
+			//std::cout << i << ' ' << m_array[i] << std::endl;
+			return i;
+			break;
+		}
+		else if (i == m_size - 1) return -1;
+	}
+}
+
+void Array::del_el_value(const int n) const {
+	for (int i = 0; i < m_size; i++) {
+		if (m_array[i] == n) {
+			delete[] m_array[i];
 			break;
 		}
 	}
 }
+
+void Array::del_el_index(const int i) const {
+	delete[] m_array[i];
+}
+
+
 
 int& Array::operator[](const int index) {
 	assert(index >= 0 && index < m_size);
