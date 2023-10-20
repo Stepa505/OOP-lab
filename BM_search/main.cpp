@@ -1,44 +1,16 @@
 #include <iostream>
-#include <string.h>
+#include <vector>
 
-int BM_search(std::string text, std::string substring) {
-	int len_t = size(text);
-	int len_s = size(substring);
-	int* shift1_array = new int[len_t];
-	int* shift2_array = new int[len_s];
-	shift2_array[len_s - 1] = len_s;
-	int n = len_s - 1;
+int* TAB_generate(std::string text, std::string substring) {
+	int len_t = text.length(), len_s = substring.length();
+	int* TAB = new int[256];
+	for (int i = 0; i < len_t; i++) TAB[text[i]] = len_s;
+	for (int i = 0; i < len_s; i++) TAB[substring[i]] = len_s - i - 1;
+	return TAB;
+}
 
-	for (int i = 0; i < len_s - 1; i++) {
-		shift2_array[i] = n;
-		n--;
-	}
+int BM_search() {
 
-	for (int i = 0; i < len_t; i++) {
-		for (int j = 0; j < len_s; j++) {
-			if (text[i] == substring[j]) {
-				shift1_array[i] = shift2_array[j];
-			}
-		}
-	}
-	int i = 0, j = 0, k = 0;
-	for (; i < len_t; j++) {
-		if (text[i] == substring[j]){
-			if (j == len_s) {
-				k = i - len_s - 1;
-				break;
-			}
-			else i++;
-		}
-		else if (text[i] != substring[j]) {
-			i += shift2_array[j];
-			j = 0;
-		}
-		if (j == len_s) {
-			j = 0;
-		}
-	}
-	return k;
 }
 
 int main() {
