@@ -9,16 +9,25 @@ int* TAB_generate(std::string text, std::string substring) {
 	return TAB;
 }
 
-int BM_search() {
-
+int BM_search(std::string text, std::string substring, int *TAB, int start = 0, int end = -1) {
+	if (end == -1) end = text.length();
+	int len_s = substring.length();
+	int i, j, k = 0;
+	for (i = start + len_s - 1, j = len_s - 1; i <= end; i = k + TAB[text[k]]) {
+		for (k = i; j = len_s; j >= 0 && text[k] == substring[j];) {
+			k--;
+			j--;
+		} 
+		if (j < 0) return k + 1;
+		if (k >= end) return -1;
+	}
+	if (i >= end && j < 0) return k + 1;
+	else return -1;
 }
 
+
+
 int main() {
-	std::string text, substring;
-	std::cout << "Enter the line with text: ";
-	std::cin >> text;
-	std::cout << std::endl;
-	std::cout << "Enter the searched substring: ";
-	std::cin >> substring;
-	std::cout << BM_search(text, substring);
+	std::string text = ":move_iterator is an iterator adaptor which behaves exactly like the underlying iterator", substring = "tor";
+
 }
