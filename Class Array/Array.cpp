@@ -145,7 +145,7 @@ std::ostream& operator<<(std::ostream& stream, const Array& arr){
 	return stream;
 }
 
-std::istream& operator>>(std::istream& stream, const Array& arr){
+std::istream& operator>>(std::istream& stream, Array& arr){
 	for (int i = 0; i < arr.size(); ++i)
 	{
 		stream >> arr[i];
