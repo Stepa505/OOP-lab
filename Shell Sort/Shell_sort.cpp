@@ -16,3 +16,22 @@ void rand_arr(int* arr, int& size) {
 	}
 }
 
+bool sort_check(int* arr, int& size) {
+	for (int i = 0; i < size - 1; i++) {
+		if (arr[i] > arr[i + 1]) return false;
+	}
+	return true;
+}
+
+void shell_sort(int* arr, int& size) {
+	int d = size / 2;
+	for (; d > 0; d /= 2) {
+		for (int i = 0; i < size - d; i++) {
+			for (int j = i; j >= 0 && arr[j] > arr[j + d]; j--) {
+				swap(arr[j], arr[j + d]);
+			}
+		}
+	}
+}
+
+
