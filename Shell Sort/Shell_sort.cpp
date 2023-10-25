@@ -35,3 +35,34 @@ void shell_sort(int* arr, int& size) {
 }
 
 
+void arr_out(int* a, int n) {
+	for (int i = 0; i < n; i++) {
+		std::cout << a[i] << " ";
+	}
+}
+
+int main() {
+	int size;
+	std::cout << "Enter the size of array: ";
+	std::cin >> size;
+	int* arr = new int[size];
+	std::cout << std::endl;
+	//std::cout << "Enter the elements of array: ";
+	//for (int i = 0; i < size; i++) {
+	//	std::cin >> arr[i];
+	//	std::cout << ", ";
+	//}
+	rand_arr(arr, size);
+	std::cout << "Your array: ";
+	arr_out(arr, size);
+	std::cout << std::endl;
+	shell_sort(arr, size);
+	if (sort_check(arr, size)) {
+		std::cout << "Sorted array: ";
+		arr_out(arr, size);
+	}
+	else {
+		std::cout << "Array is not sorted. ";
+		arr_out(arr, size);
+	}
+}
