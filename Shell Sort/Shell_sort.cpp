@@ -65,4 +65,5 @@ int main() {
 		std::cout << "Array is not sorted. ";
 		arr_out(arr, size);
 	}
+	delete[] arr;
 }
