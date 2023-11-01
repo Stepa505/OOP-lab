@@ -42,9 +42,26 @@ void Heap_Sort(int* arr, int size) {
 }
 
 int main() {
-	int* arr, size;
+	int* arr, size, choice;
+	std::cout << "Enter size of the array: ";
 	std::cin >> size;
+	std::cout << std::endl;
 	arr = new int[size];
-
+	std::cout << "If you want to fell array with your numbers - type 1, if you want to fell array with random numbers - type 0: ";
+	std::cin >> choice;
+	std::cout << std::endl;
+	if (choice == 0)
+		rand_arr(arr, size);
+	else {
+		std::cout << "Enter array numbers: [ ";
+		for (int i = 0; i < size; i++) {
+			std::cin >> arr[i];
+			if (i < size - 1)
+				std::cout << ", ";
+			else
+				std::cout << " ].";
+		}
+	}
+		
 
 }
