@@ -41,6 +41,19 @@ void Heap_Sort(int* arr, int size) {
 	}
 }
 
+bool sort_check(int* arr, int& size) {
+	for (int i = 0; i < size - 1; i++) {
+		if (arr[i] > arr[i + 1]) return false;
+	}
+	return true;
+}
+
+void arr_out(int* a, int n) {
+	for (int i = 0; i < n; i++) {
+		std::cout << a[i] << " ,";
+	}
+}
+
 int main() {
 	int* arr, size, choice;
 	std::cout << "Enter size of the array: ";
@@ -62,6 +75,13 @@ int main() {
 				std::cout << " ].";
 		}
 	}
-		
+	Heap_Sort(arr, size);
+	arr_out(arr, size);
+	if (sort_check(arr, size)) {
+		std::cout << "Array is sorted: ";
+		arr_out(arr, size);
+	}
+	else
+		std::cout << "Array is not sorted.";
 
 }
