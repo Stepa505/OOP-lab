@@ -4,10 +4,11 @@
 #include<iostream>
 #include<vector>
 #include<chrono>
-#include <fstream>
 
-void random_file_gen(int n, int l, int r) {
+void random_file_gen(int& n, int& r) {
 	srand(time(0));
+	int l = -r;
+	std::string name = "Array" + std::to_string(n) + "_in_range" + std::to_string(r) + ".txt";
 	std::ofstream out;
 	out.open("random_numbers.txt");
 	if (out.is_open())
@@ -96,3 +97,19 @@ void BitSort(std::vector<int>& arr)
 	BitwiseSort(arr, 0, j, k);
 	BitwiseSort(arr, i, arr.size() - 1, k);
 }
+
+void file_in_array(const char* name, std::vector<int>& arr)
+{
+	std::ifstream fin(name);
+	int n;
+	if (!fin.good())
+		std::cout << "File not found!" << std::endl;
+	else
+	{
+		while (fin >> n)
+			arr.push_back(n);
+	}
+	fin.close();
+}
+
+
