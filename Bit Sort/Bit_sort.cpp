@@ -26,7 +26,7 @@ void arr_out(std::vector<int> a, int l, int r) {
 	std::cout << "]";
 }
 
-int max(std::vector<int>& arr)
+int MAX(std::vector<int>& arr)
 {
 	int max = arr[0];
 	for (int i = 0; i < arr.size(); i++)
@@ -72,7 +72,7 @@ void BitwiseSort(std::vector<int>& arr, int left_lim, int right_lim, int k)
 
 void BitSort(std::vector<int>& arr)
 {
-	int max = FindMax(arr);
+	int max = MAX(arr);
 	int k = 0;
 	while (max)
 	{
