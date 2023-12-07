@@ -10,7 +10,7 @@ void random_file_gen(int& n, int& r) {
 	int l = -r;
 	std::string name = "Array" + std::to_string(n) + "_in_range" + std::to_string(r) + ".txt";
 	std::ofstream out;
-	out.open("random_numbers.txt");
+	out.open(name);
 	if (out.is_open())
 	{
 		for (int i = 0; i < n; i++) {
@@ -133,3 +133,19 @@ float ATW_bit_sort(const char* name)
 	return average_time;
 }
 
+int main()
+{
+	std::cout << "=============BitSort Sort=============" << std::endl;
+	for (int size = 10000; size <= 1000000; size *= 10)
+	{
+		for (int range = 10; range <= 100000; range *= 100)
+		{
+			random_file_gen(size, range);
+			std::string name = "Array" + std::to_string(size) + "_in_range" + std::to_string(range) + ".txt";
+			float average_time = ATW_bit_sort(name.c_str());
+			std::cout << "Numbers of element = " << size << " range[-" << range << ";" << range << "]" << std::endl;
+			std::cout << "Average time = " << average_time << " ms" << std::endl;
+		}
+	}
+	return 0;
+}
