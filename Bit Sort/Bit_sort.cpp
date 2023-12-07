@@ -47,4 +47,52 @@ bool sort_check(std::vector<int>& arr)
 	return true;
 }
 
+void BitwiseSort(std::vector<int>& arr, int left_lim, int right_lim, int k)
+{
+	if (left_lim >= right_lim || k < 0)
+		return;
+	int i = left_lim, j = right_lim;
+	int mask = 1 << k;
+	while (i <= j)
+	{
+		while (i <= j && (arr[i] & mask) == 0)
+			i++;
+		while (i <= j && (arr[j] & mask) != 0)
+			j--;
+		if (i < j)
+		{
+			std::swap(arr[i], arr[j]);
+			i++;
+			j--;
+		}
+	}
+	BitwiseSort(arr, left_lim, j, k - 1);
+	BitwiseSort(arr, i, right_lim, k - 1);
+}
 
+void BitSort(std::vector<int>& arr)
+{
+	int max = FindMax(arr);
+	int k = 0;
+	while (max)
+	{
+		max >>= 1;
+		k++;
+	}
+	int i = 0, j = arr.size() - 1;
+	while (i <= j)
+	{
+		while (arr[i] < 0)
+			i++;
+		while (arr[j] >= 0)
+			j--;
+		if (i <= j)
+		{
+			std::swap(arr[i], arr[j]);
+			i++;
+			j--;
+		}
+	}
+	BitwiseSort(arr, 0, j, k);
+	BitwiseSort(arr, i, arr.size() - 1, k);
+}
