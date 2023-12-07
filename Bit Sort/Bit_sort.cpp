@@ -112,4 +112,24 @@ void file_in_array(const char* name, std::vector<int>& arr)
 	fin.close();
 }
 
+float ATW_bit_sort(const char* name)
+{
+	float average_time = 0;
+	const int count = 3;
+	std::vector<int> origin;
+	file_in_array(name, origin);
+	for (int i = 0; i <= count; i++)
+	{
+		std::vector<int> copy = origin;
+		auto start = std::chrono::high_resolution_clock::now();
+		BitSort(copy);
+		auto end = std::chrono::high_resolution_clock::now();
+		float time1 = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+		average_time += time1;
+		if (!sort_check(copy))
+			std::cout << "Try " << i << " .The array is not sorted" << std::endl;
+	}
+	average_time /= count;
+	return average_time;
+}
 
