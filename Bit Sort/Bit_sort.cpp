@@ -5,20 +5,20 @@
 #include<vector>
 #include<chrono>
 
-void random_file_gen(int& n, int& r) {
-	srand(time(0));
-	int l = -r;
-	std::string name = "Array" + std::to_string(n) + "_in_range" + std::to_string(r) + ".txt";
-	std::ofstream out;
-	out.open(name);
-	if (out.is_open())
-	{
-		for (int i = 0; i < n; i++) {
-			out << l + rand() % r;
-		}
-	}
-	out.close();
-}
+//void random_file_gen(int& n, int& r) {
+//	srand(time(0));
+//	int l = -r;
+//	std::string name = "Array" + std::to_string(n) + "_in_range" + std::to_string(r) + ".txt";
+//	std::ofstream out;
+//	out.open(name);
+//	if (out.is_open())
+//	{
+//		for (int i = 0; i < n; i++) {
+//			out << l + rand() % r;
+//		}
+//	}
+//	out.close();
+//}
 
 void arr_out(std::vector<int> a, int l, int r) {
 	std::cout << "[";
@@ -140,7 +140,7 @@ int main()
 	{
 		for (int range = 10; range <= 100000; range *= 100)
 		{
-			random_file_gen(size, range);
+			//random_file_gen(size, range);
 			std::string name = "Array" + std::to_string(size) + "_in_range" + std::to_string(range) + ".txt";
 			float average_time = ATW_bit_sort(name.c_str());
 			std::cout << "Numbers of element = " << size << " range[-" << range << ";" << range << "]" << std::endl;
