@@ -62,13 +62,31 @@ void hoar_sort(std::vector<int>& arr, const int l_lim, const int r_lim) {
 	hoar_sort(arr, i, r_lim);
 }
 
-
+float ATW_Hoar(const char* name) {
+	float avg_time = 0;
+	const int count = 3;
+	std::vector<int> arr_file;
+	file_in_array(name, arr_file);
+	for (int i = 0; i <= count; i++) {
+		std::vector<int> arr = arr_file;
+		auto start = std::chrono::high_resolution_clock::now();
+		hoar_sort(arr, 0, arr.size() - 1);
+		auto end = std::chrono::high_resolution_clock::now();
+		float time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+		avg_time += time;
+	}
+	avg_time /= count;
+	return avg_time;
+}
 
 int main() {
 	for (int size = 10000; size <= 1000000; size *= 10) {
 		for (int range = 10; range <= 100000; range *= 100) {
 			std::string name = "Array" + std::to_string(size) + "_in_range" + std::to_string(range) + ".txt";
 			random_file_gen(name.c_str(), range, size);
+			float avg_time = ATW_Hoar(name.c_str());
+			std::cout << "Numbers of element = " << size << " range[-" << range << ";" << range << "]" << std::endl;
+			std::cout << "Average time = " << avg_time << " ms" << std::endl;
 		}
 	}
 }
