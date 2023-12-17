@@ -127,7 +127,7 @@ Fraction Fraction::operator /(const Fraction other)const {
 	return Div(other);
 }
 
-//собственный метод
+//собсвтенный метод
 Fraction Fraction::Exp(const int n) {
 	Fraction c;
 	int a = m_numerator, b = m_denominator;
@@ -176,3 +176,4 @@ Fraction Fraction::reverse() const {
 	c.m_denominator = m_numerator;
 	return c;
 }
+
