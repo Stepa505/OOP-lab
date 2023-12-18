@@ -2,43 +2,113 @@
 #include<iostream>
 #include<assert.h>
 
+template <typename ItemType>
 class Array {
 public:
-	Array(const int size = 10, const int value = 0);
+	template<typename IT, typename AT>
+	class TmpIterator;
+	typedef TmpIterator<ItemType, Array> Iterator;
+	typedef TmpIterator<const ItemType, const Array> ConstIterator;
+public:
+	Array(const int size = 10, const ItemType& value = ItemType());
 	Array(const Array& other);
 	Array(Array&& other);
 	~Array();
-	
-	void print() const;
 
-	int size() const;
+	void Sort();
 
-	void resize(const int size);
+	int Size() const;
 
-	int find(const int element);
+	void Resize(const int size);
 
-	void swap(Array& other);
+	int Find(const ItemType& value) const;
 
-	bool del_el_value(int n);
+	void Swap(Array& other);
 
-	bool del_el_index(int i);
+	bool DeleteElementValue(const ItemType& value);
 
-	bool insert_value(int i, const int& value);
+	bool DeleteElementIndex(const int& index);
 
-	const int& operator[](const int index) const;
+	bool InsertValue(const int index, const ItemType& value);
 
-	Array& operator=(const Array &other);
-	
+	bool DeleteAllValue(const ItemType& value);
+
+	ItemType Max() const;
+
+	ItemType Min() const;
+
+	const ItemType& operator[](const int& index) const;
+
+	Array& operator=(const Array& other);
+
 	Array operator+(const Array& other) const;
+
+	Array operator+(const ItemType& value) const;
 
 	Array& operator+=(const Array& other);
 
-private:
-	int* m_array = nullptr;
+	Array& operator+=(const ItemType& value);
 
-	int m_size = 0;
+	bool operator !=(const Array& other) const;
+
+	bool operator ==(const Array& other) const;
+
+	Iterator Begin();
+
+	Iterator End();
+
+	ConstIterator Begin()const;
+
+	ConstIterator End()const;
+
+	bool InsertIter(Iterator iter, const ItemType& value);
+
+	bool DeleteOfIteratorRange(const Iterator& left, const Iterator& right);
+
+	bool DeleteOfIterator(const Iterator& iter);
+
+private:
+	ItemType* m_array = nullptr;
+
+	ItemType m_size = ItemType();
 };
 
-std::ostream& operator<<(std::ostream& stream, const Array& arr);
+template <typename ItemType>
+std::ostream& operator<<(std::ostream& stream, const Array<ItemType>& arr);
 
-std::istream& operator>>(std::istream& stream, Array& arr);
+template <typename ItemType>typename
+std::istream& operator>>(std::istream& stream, Array<ItemType>& arr);
+
+template<typename ItemType>
+template<typename IT, typename AT>
+class Array<ItemType>::TmpIterator
+{
+public:
+	TmpIterator(AT* array = nullptr, int pos = 0);
+
+	IT& operator*();
+
+	TmpIterator& operator -- ();
+
+	TmpIterator& operator ++ ();
+
+	int Position () const;
+
+	bool operator ==(const TmpIterator& other)const;
+
+	bool operator !=(const TmpIterator& other)const;
+
+	bool operator <=(const TmpIterator& other)const;
+
+	bool operator <(const TmpIterator& other)const;
+
+	bool operator >=(const TmpIterator& other)const;
+
+	bool operator >(const TmpIterator& other)const;
+private:
+	AT* m_array;
+	int m_pos = 0;
+
+};
+
+#include"Array.cpp"
