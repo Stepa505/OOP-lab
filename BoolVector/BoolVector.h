@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <assert.h>
+#include<stdint.h>
 
 class BoolVector
 {
@@ -17,7 +17,7 @@ public:
 
 	BoolVector(BoolVector& other);
 
-	BoolVector(const char* vector);
+	BoolVector(const char* value);
 
 	~BoolVector();
 
@@ -27,9 +27,9 @@ public:
 
 	void Inverse();
 
-	void Set1(const int* cell, const int* cell_pos);
+	void Set1(const int cell, const int cell_pos);
 
-	void Set0(const int* cell, const int* cell_pos);
+	void Set0(const int cell, const int cell_pos);
 
 	void Set1InRange();
 
