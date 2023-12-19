@@ -33,9 +33,9 @@ public:
 
 	void Set0(const int cell, const int cell_pos);
 
-	void Set1(const int cell_left, const int cell_right);
+	void Set1InRange(const int cell_left, const int cell_right);
 
-	void Set0(const int cell_left, const int cell_right);
+	void Set0InRange(const int cell_left, const int cell_right);
 
 	void Set1All();
 
@@ -49,11 +49,11 @@ public:
 
 	BoolVector::BoolRank operator [](const int& index);
 
-	BoolVector operator &(const BoolVector& other) const;
+	BoolVector operator &(const BoolVector& other) ;
 
 	BoolVector operator &=(const BoolVector& other);
 
-	BoolVector operator |(const BoolVector& other) const;
+	BoolVector operator |(const BoolVector& other);
 
 	BoolVector operator |=(const BoolVector& other);
 

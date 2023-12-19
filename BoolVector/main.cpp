@@ -20,7 +20,7 @@ int main() {
 	std::cout << " ";
 	vector1.Print();
 	std::cout << std::endl;
-	vector1.Inverse();
+	vector1.InverseIndex(15);
 	vector1.Print();
 	std::cout << std::endl;
 }
