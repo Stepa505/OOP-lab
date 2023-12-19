@@ -27,9 +27,9 @@ public:
 
 	void Inverse();
 
-	void Set1();
+	void Set1(const int* cell, const int* cell_pos);
 
-	void Set0();
+	void Set0(const int* cell, const int* cell_pos);
 
 	void Set1InRange();
 
@@ -84,25 +84,46 @@ public:
 	bool operator <(const BoolVector& other) const;
 
 	friend std::ostream& operator <<(std::ostream& stream, const BoolVector& vector);
-
 private:
 	UI m_lenght = 0;
 
-	UI m_cellsCount = 0;
+	UI m_cellCount = 0;
 
 	uint8_t m_insignificantRankCount = 0;
 
 	UC* m_cells = nullptr;
 
 	static const uint8_t m_cellSize = 8;
-
 };
 
 class BoolVector::BoolRank
 {
 public:
+	BoolRank(UC* cell, const int maskoffset);
 
+	BoolRank& operator=(const bool value);
+
+	void Print();
+
+	BoolRank& operator=(const BoolRank& other);
+
+	operator bool() const;
+
+	bool operator==(BoolRank& other)const;
+
+	bool operator==(const bool value)const;
+
+	bool operator~()const;
+
+	bool operator&(const bool value)const;
+
+	bool operator|(const bool value)const;
+
+	bool operator^(const bool vale)const;
 private:
+	uint8_t* m_cell = nullptr;
+
+	uint8_t m_mask = 1 << 7;
 };
 
 std::istream& operator >>(std::istream& stream, const BoolVector& vector);
