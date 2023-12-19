@@ -6,7 +6,7 @@
 #include<string>
 
 int main() {
-	BoolVector vector(true, 16);
+	BoolVector vector(true, 14);
 	vector.Print();
 	std::cout << std::endl;
 	BoolVector vector1(vector);
@@ -20,7 +20,7 @@ int main() {
 	std::cout << " ";
 	vector1.Print();
 	std::cout << std::endl;
-	vector1.InverseIndex(15);
+	vector1.Inverse();
 	vector1.Print();
 	std::cout << std::endl;
 }

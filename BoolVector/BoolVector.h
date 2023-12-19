@@ -57,17 +57,17 @@ public:
 
 	BoolVector operator |=(const BoolVector& other);
 
-	BoolVector operator ^(const BoolVector& other) const;
+	BoolVector operator ^(const BoolVector& other);
 
 	BoolVector operator ^=(const BoolVector& other);
 
 	BoolVector operator =(const BoolVector& other);
 
-	BoolVector operator ~() const;
+	BoolVector operator ~();
 
-	BoolVector operator >>(const int& shift) const;
+	BoolVector operator >>(const int& shift);
 
-	BoolVector operator <<(const int& shift) const;
+	BoolVector operator <<(const int& shift);
 
 	BoolVector operator >>=(const int& shift);
 
