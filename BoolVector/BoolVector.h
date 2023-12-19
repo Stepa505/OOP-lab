@@ -11,13 +11,15 @@ public:
 
 	class BoolRank;
 
+	void Print();   
+
 	BoolVector();
 
 	BoolVector(const bool value = false, const UI lenght = 0);
 
 	BoolVector(BoolVector& other);
 
-	BoolVector(const char* value);
+	BoolVector(const char* str);
 
 	~BoolVector();
 
@@ -31,15 +33,15 @@ public:
 
 	void Set0(const int cell, const int cell_pos);
 
-	void Set1InRange();
+	void Set1(const int cell_left, const int cell_right);
 
-	void Set0InRange();
+	void Set0(const int cell_left, const int cell_right);
 
 	void Set1All();
 
 	void Set0All();
 
-	void InverseIndex();
+	void InverseIndex(const int& index);
 
 	int Weight();
 
@@ -69,7 +71,7 @@ public:
 
 	BoolVector operator >>=(const int& shift);
 
-	BoolVector operator >>=(const int& shift);
+	BoolVector operator <<=(const int& shift);
 
 	bool operator ==(const BoolVector& other) const;
 
@@ -101,7 +103,7 @@ class BoolVector::BoolRank
 public:
 	BoolRank(UC* cell, const int maskoffset);
 
-	BoolRank& operator=(const bool value);
+	BoolRank& operator=(const bool str);
 
 	void Print();
 
