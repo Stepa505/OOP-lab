@@ -1,10 +1,6 @@
 #pragma once
 
 class Fraction {
-private:
-	int m_numerator = 0;
-
-	int m_denominator = 1;
 public:
 	Fraction() = default;
 
@@ -32,30 +28,35 @@ public:
 
 	Fraction Div(const Fraction& k) const;
 
-	Fraction Exp(const int n) ;
-	
+	Fraction Exp(const int n);
+
 	Fraction reduction();
 
 	Fraction reverse()const;
 
 	int GCD();
 
-	bool operator == (const Fraction other) const;
+	Fraction double_to_Fraction(const double& number, const int& ndp);
 
-	bool operator != (const Fraction other) const;
+	bool operator == (const Fraction& other) const;
 
-	bool operator < (const Fraction other)const;
+	bool operator != (const Fraction& other) const;
 
-	bool operator > (const Fraction other)const;
+	bool operator < (const Fraction& other)const;
 
-	Fraction operator +(const Fraction other)const;
+	bool operator > (const Fraction& other)const;
 
-	Fraction operator -(const Fraction other)const;
+	Fraction operator +(const Fraction& other)const;
 
-	Fraction operator *(const Fraction other)const;
+	Fraction operator -(const Fraction& other)const;
 
-	Fraction operator /(const Fraction other)const;
+	Fraction operator *(const Fraction& other)const;
 
-	Fraction operator =(const Fraction other)const;
-	
+	Fraction operator /(const Fraction& other)const;
+
+	Fraction operator =(const Fraction& other);
+private:
+	int m_numerator = 0;
+
+	int m_denominator = 1;
 };

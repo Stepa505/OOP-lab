@@ -1,27 +1,27 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <string>
 #include <assert.h>
 #include <stdio.h>
 #include "Fraction.h"
 
-Fraction::Fraction(const int numerator,const int denominator)
-	: m_numerator(numerator){
+Fraction::Fraction(const int numerator, const int denominator)
+	: m_numerator(numerator) {
 
-		if (denominator == 0)
-		{
-			std::cerr << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.\n";
-		}
-		else
-		{
-			m_denominator = denominator;
-		}
-		if (denominator < 0)
-		{
-			m_denominator *= -1;
-			m_numerator *= -1;
-		}
-
+	if (denominator == 0)
+	{
+		std::cerr << "Fraction::Fraction: error: denominator is 0, result will be numerator/1.\n";
 	}
+	else
+	{
+		m_denominator = denominator;
+	}
+	if (denominator < 0)
+	{
+		m_denominator *= -1;
+		m_numerator *= -1;
+	}
+
+}
 
 void Fraction::print() const {
 	std::cout << m_numerator << '/' << m_denominator << std::endl;
@@ -47,7 +47,7 @@ int Fraction::getDenominator() {
 	return m_denominator;
 }
 
-void Fraction::setNumerator(const int value){
+void Fraction::setNumerator(const int value) {
 	m_numerator = value;
 }
 
@@ -95,39 +95,39 @@ Fraction Fraction::Div(const Fraction& k) const {
 	return c;
 }
 
-bool Fraction::operator == (const Fraction other) const {
+bool Fraction::operator == (const Fraction& other) const {
 	return(m_numerator == other.m_numerator && m_denominator == other.m_denominator);
 }
 
-bool Fraction::operator != (const Fraction other) const {
+bool Fraction::operator != (const Fraction& other) const {
 	return !operator == (other);
 }
 
-bool Fraction::operator < (const Fraction other)const {
+bool Fraction::operator < (const Fraction& other)const {
 	return((m_numerator * other.m_denominator) < (other.m_numerator * m_denominator));
 }
 
-bool Fraction::operator > (const Fraction other)const {
+bool Fraction::operator > (const Fraction& other)const {
 	return((m_numerator * other.m_denominator) > (other.m_numerator * m_denominator));
 }
 
-Fraction Fraction::operator +(const Fraction other)const {
+Fraction Fraction::operator +(const Fraction& other)const {
 	return Add(other);
 }
 
-Fraction Fraction::operator -(const Fraction other)const {
+Fraction Fraction::operator -(const Fraction& other)const {
 	return Sub(other);
 }
 
-Fraction Fraction::operator *(const Fraction other)const {
+Fraction Fraction::operator *(const Fraction& other)const {
 	return Multi(other);
 }
 
-Fraction Fraction::operator /(const Fraction other)const {
+Fraction Fraction::operator /(const Fraction& other)const {
 	return Div(other);
 }
 
-//собсвтенный метод
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 Fraction Fraction::Exp(const int n) {
 	Fraction c;
 	int a = m_numerator, b = m_denominator;
@@ -169,7 +169,7 @@ Fraction Fraction::reduction() {
 	return *this;
 }
 
-//собсвтенный метод
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 Fraction Fraction::reverse() const {
 	Fraction c;
 	c.m_numerator = m_denominator;
@@ -177,3 +177,18 @@ Fraction Fraction::reverse() const {
 	return c;
 }
 
+Fraction Fraction::operator =(const Fraction& other) {
+	if (m_numerator == other.m_numerator && m_denominator == other.m_denominator) return *this;
+	m_numerator = other.m_numerator;
+	m_denominator = other.m_denominator;
+	return *this;
+}
+
+Fraction Fraction::double_to_Fraction(const double& number,const int& ndp) {
+	m_denominator = 1;
+	for (int i = 1; i <= ndp; i++) {
+		m_denominator *= 10;
+	}
+	m_numerator = int(number*m_denominator);
+	return *this;
+}
