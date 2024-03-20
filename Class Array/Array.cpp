@@ -28,7 +28,7 @@ Array<ItemType>::Array(const Array& other)
 
 template<typename ItemType>
 Array<ItemType>::Array(Array&& other) {
-	swap(other);
+	Swap(other);
 }
 
 template<typename ItemType>
@@ -38,22 +38,21 @@ Array<ItemType>::~Array() {
 
 template<typename ItemType>
 void Array<ItemType>::Sort() {
-	ItemType max = m_array[0];
-	int n = m_size;
-	for (int j = 0; j < m_size; j++){
-		for (int i = 0; i < n; i++) {
-			if (m_array[i] > max) max = m_array[i];
+	for (int s = (m_size / 2) + 1; s > 0; s /= 2) {
+		for (int i = s; i < m_size; ++i) {
+			for (int j = i - s; j >= 0 && m_array[j] > m_array[j + s]; j -= s) {
+				ItemType temp = m_array[j];
+				m_array[j] = m_array[j + s];
+				m_array[j + s] = temp;
+			}
 		}
-		std::swap(m_array[n], max);
-		n--;
-		max = m_array[0];
 	}
 }
 
 template<typename ItemType>
 void Array<ItemType>::Swap(Array& other){
 	std::swap(m_size, other.m_size);
-	std::swap(m_array, other, m_array);
+	std::swap(m_array, other.m_array);
 }
 
 template<typename ItemType>
@@ -82,18 +81,19 @@ int Array<ItemType>::Find(const ItemType& value) const {
 template<typename ItemType>
 bool Array<ItemType>::DeleteElementValue(const ItemType& value) {
 	Array arr(m_size - 1);
-	int i = 0;
+	int i = 0, k = 0;
 	for (int j = 0; j < m_size; j++) {
 		if (m_array[j]==value){
 			for (; m_array[i] != value; i++) arr.m_array[i] = m_array[i];
-			i++;
-			for (; i < m_size; i++) arr.m_array[i - 1] = m_array[i];
+			k++;
+			for (; i < m_size; i++) arr.m_array[i] = m_array[i + 1];
 		}
-		if (i == 0) return false;
-		break;
 	}
-	Swap(arr);
-	return true;
+	if (k == 0) return false;
+	else {
+		Swap(arr);
+		return true;
+	}
 }
 
 template<typename ItemType>
@@ -102,7 +102,7 @@ bool Array<ItemType>::DeleteElementIndex(const int& index) {
 	Array arr(m_size - 1);
 	int i = 0;
 	for (; i < index; i++) arr.m_array[i] = m_array[i];
-	for (; i < m_size; i++) arr.m_array[i - 1] = m_array[i];
+	for (; i < m_size; i++) arr.m_array[i] = m_array[i + 1];//в условии m_size-1 т.к. будет заход за рамки дальше в приравнивание
 	Swap(arr);
 	return true;
 }
@@ -113,6 +113,7 @@ bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
 	for (int i = 0; i < m_size; i++) {
 		if (m_array[i] == value) {
 			DeleteElementIndex(i);
+			i--;
 			k++;
 		}
 	}
@@ -181,6 +182,12 @@ const ItemType& Array<ItemType>:: operator [] (const int& index) const {
 }
 
 template<typename ItemType>
+ItemType& Array<ItemType>:: operator [] (const int& index) {
+	assert(index >= 0 && index < m_size);
+	return m_array[index];
+}
+
+template<typename ItemType>
 Array<ItemType>& Array<ItemType>:: operator = (const Array& other) {
 	if (this == &other) return *this;
 	if (m_size != other.m_size) {
@@ -188,41 +195,44 @@ Array<ItemType>& Array<ItemType>:: operator = (const Array& other) {
 		m_size = other.m_size;
 		m_array = new ItemType[m_size];
 	}
-	for (int i = 0; i < m_size; i++) m_array[i] = other.m_array[i];
+	for (int i = 0; i < m_size; i++) {
+		m_array[i] = other.m_array[i];
+	}
 	return *this;
 }
 
 template<typename ItemType>
 Array<ItemType> Array<ItemType>:: operator + (const Array& other) const {
 	Array result(m_size + other.m_size);
-	int i = 0;
-	for (; i < other.m_size; i++) result.m_array[i] = m_array[i];
-	for (; i < m_size + other.m_size; i++) result.m_array[i] = other.m_array[i - other.m_size];
+	int i = m_size + other.m_size - 1;
+	for (; i > other.m_size - 1; i--) {
+		result.m_array[i] = m_array[i - other.m_size];
+	}
+	for (; i > -1; i--) {
+		result.m_array[i] = other.m_array[i];
+	}
 	return result;
 }
 
 template<typename ItemType>
-Array<ItemType> Array<ItemType>:: operator + (const ItemType& value) const {
+Array<ItemType> Array<ItemType>:: operator + (const ItemType& value) {
 	Array result(m_size + 1);
-	result.m_array[m_size] = value;
+	for (int i = 0; i < m_size; i++) {
+		result.m_array[i] = m_array[i];
+	}
+	result[m_size] = value;
 	return result;
 }
 
 template<typename ItemType>
 Array<ItemType>& Array<ItemType>:: operator += (const Array& other) {
-	delete[] m_array;
-	m_size += other.m_size;
-	m_array = new ItemType[m_size];
-	for (int i = other.m_size; i < m_size; i++) m_array[i] = other.m_array[i - other.m_size];
+	*this = *this + other;
 	return *this;
 }
 
 template<typename ItemType>
 Array<ItemType>& Array<ItemType>:: operator += (const ItemType& value) {
-	delete[] m_array;
-	m_size++;
-	m_array = new ItemType[m_size];
-	m_array[m_size] = value;
+	*this = *this + value;
 	return *this;
 }
 
@@ -343,7 +353,7 @@ Array<ItemType>::ConstIterator Array<ItemType>::End() const{
 }
 
 template <typename ItemType>
-bool Array<ItemType>::InsertIter(Iterator iter, const ItemType& value) {
+bool Array<ItemType>::InsertIterValue(Iterator iter, const ItemType& value) {
 	if (iter.Position() > m_size || iter < Begin()) return false;
 	int index = iter.Position();
 	if (iter == Begin()) return this->InsertIndex(index, value);

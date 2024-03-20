@@ -29,13 +29,13 @@ public:
 
 	void Inverse();
 
-	void Set1(const int cell, const int cell_pos);
+	void Set1(const UI cell, const UI cell_pos);
 
-	void Set0(const int cell, const int cell_pos);
+	void Set0(const UI cell, const UI cell_pos);
 
-	void Set1InRange(const int cell_left, const int cell_right);
+	void Set1InRange(const UI cell_left, const UI cell_right);
 
-	void Set0InRange(const int cell_left, const int cell_right);
+	void Set0InRange(const UI cell_left, const UI cell_right);
 
 	void Set1All();
 
@@ -103,25 +103,25 @@ class BoolVector::BoolRank
 public:
 	BoolRank(UC* cell, const int maskoffset);
 
-	BoolRank& operator=(const bool str);
-
-	void Print();
+	~BoolRank();
 
 	BoolRank& operator=(const BoolRank& other);
 
+	BoolRank& operator=(const bool value);
+
 	operator bool() const;
 
-	bool operator==(BoolRank& other)const;
+	//bool operator==(BoolRank& other)const;
 
-	bool operator==(const bool value)const;
+	//bool operator==(const bool value)const;
 
-	bool operator~()const;
+	//bool operator~()const;
 
-	bool operator&(const bool value)const;
+	//bool operator&(const bool value)const;
 
-	bool operator|(const bool value)const;
+	//bool operator|(const bool value)const;
 
-	bool operator^(const bool vale)const;
+	//bool operator^(const bool vale)const;
 private:
 	uint8_t* m_cell = nullptr;
 

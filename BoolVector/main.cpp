@@ -6,21 +6,30 @@
 #include<string>
 
 int main() {
-	BoolVector vector(true, 14);
+	BoolVector vector(1, 14);
 	vector.Print();
-	std::cout << std::endl;
-	BoolVector vector1(vector);
-	vector1.Print();
-	std::cout << std::endl;
-	vector.Set0(1, 5);
+	puts("");
+	BoolVector vec(vector);
+	vec.Print();
+	puts("");
+	BoolVector vec2("10010101001001");
+	vec2.Print();
+	puts("");
+	std::cout << vector.Lenght();
+	puts("");
+	vector.Inverse();
 	vector.Print();
-	std::cout << std::endl;
-	vector.Swap(vector1);
+	puts("");
+	vector.Inverse();
+	vector.Set0(0, 3);
 	vector.Print();
-	std::cout << " ";
-	vector1.Print();
-	std::cout << std::endl;
-	vector1.Inverse();
-	vector1.Print();
-	std::cout << std::endl;
+	puts("");
+	vector.Swap(vec2);
+	vector.Print();
+	puts("");
+	vec2.InverseIndex(13);
+	vec2.Print();
+	puts("");
+	vec2.Set0InRange(2, 11);
+	vec2.Print();
 }

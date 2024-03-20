@@ -39,11 +39,13 @@ public:
 
 	const ItemType& operator[](const int& index) const;
 
+	ItemType& operator[](const int& index);
+
 	Array& operator=(const Array& other);
 
 	Array operator+(const Array& other) const;
 
-	Array operator+(const ItemType& value) const;
+	Array operator+(const ItemType& value);
 
 	Array& operator+=(const Array& other);
 
@@ -61,7 +63,7 @@ public:
 
 	ConstIterator End()const;
 
-	bool InsertIter(Iterator iter, const ItemType& value);
+	bool InsertIterValue(Iterator iter, const ItemType& value);
 
 	bool DeleteOfIteratorRange(const Iterator& left, const Iterator& right);
 
@@ -76,7 +78,7 @@ private:
 template <typename ItemType>
 std::ostream& operator<<(std::ostream& stream, const Array<ItemType>& arr);
 
-template <typename ItemType>typename
+template <typename ItemType>
 std::istream& operator>>(std::istream& stream, Array<ItemType>& arr);
 
 template<typename ItemType>
