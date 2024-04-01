@@ -62,7 +62,7 @@ BoolVector::~BoolVector() {
 	delete[] m_cells;
 }
 
-BoolVector::BoolRank::BoolRank(UC* cell, const int maskoffset) {
+BoolVector::BoolRank::BoolRank(UC* cell, const int& maskoffset) {
 	m_cell = cell;
 	m_mask = m_mask >> maskoffset;
 }
@@ -243,8 +243,13 @@ BoolVector BoolVector::operator =(const BoolVector& other) {
 	return *this;
 }
 
+const BoolVector::BoolRank BoolVector:: operator [](const int& index) const {
+	assert(index >= 0 || index < m_lenght);
+	return const BoolRank(m_cells + index / m_cellSize, index % m_cellSize);
+}
+
 BoolVector::BoolRank BoolVector::operator [](const int& index) {
-	assert(index >= 0);
+	assert(index >= 0 || index < m_lenght);
 	return BoolRank(m_cells + index / m_cellSize, index % m_cellSize);
 }
 
@@ -292,24 +297,154 @@ BoolVector BoolVector::operator <<(const int& shift) {
 
 BoolVector BoolVector::operator >>=(const int& shift) {
 	*this = *this >> shift;
-	//for (int i = 0; i < shift; i++) {
-	//	this[i + shift] = this[i];
-	//	this[i] = '0';
-	//}
-	//m_cells[m_cellCount - 1] = m_cells[m_cellCount - 1] >> m_insignificantRankCount;
-	//m_cells[m_cellCount - 1] = m_cells[m_cellCount - 1] << m_insignificantRankCount;
-	//return *this;
 	return *this;
 }
 
 BoolVector BoolVector::operator <<=(const int& shift) {
 	*this = *this << shift;
-	/*for (int i = m_lenght - 1; i > shift; i--) {
-		this[i - shift] = this[i];
-		this[i] = '0';
-	}
-	m_cells[m_cellCount - 1] = m_cells[m_cellCount - 1] >> m_insignificantRankCount;
-	m_cells[m_cellCount - 1] = m_cells[m_cellCount - 1] << m_insignificantRankCount;*/
 	return *this;
 }
 
+bool BoolVector::operator ==(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	if (m_lenght != other.m_lenght) {
+		return false;
+	}
+	else {
+		for (int i = 0; i < m_cellCount; i++) {
+			for (int j = 0; j < m_cellSize; j++) {
+				if ((m_cells[i] & mask) != (other.m_cells[i] & mask)) {
+					return false;
+				}
+				else {
+					mask = mask << 1;
+				}
+			}
+			mask = 1;
+		}
+	}
+	return true;
+}
+
+bool BoolVector::operator !=(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	if (m_lenght != other.m_lenght) {
+		return true;
+	}
+	else {
+		for (int i = 0; i < m_cellCount; i++) {
+			for (int j = 0; j < m_cellSize; j++) {
+				if ((m_cells[i] & mask) != (other.m_cells[i] & mask)) {
+					return true;
+				}
+				else {
+					mask = mask << 1;
+				}
+			}
+			mask = 1;
+		}
+	}
+	return false;
+}
+
+bool BoolVector::operator <=(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	mask = mask << (m_cellSize - 1);
+	for (int i = m_cellCount - 1; i >= 0; i--) {
+		for (int j = m_cellSize - 1; j >= 0; j--) {
+			if ((m_cells[i] & mask) > (other.m_cells[i] & mask)) {
+				return false;
+			}
+			mask = mask >> 1;
+		}
+		mask = 1;
+		mask = mask << 7;
+	}
+	return true;
+}
+
+bool BoolVector::operator >=(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	mask = mask << (m_cellSize - 1);
+	for (int i = m_cellCount - 1; i >= 0; i--) {
+		for (int j = m_cellSize - 1; j >= 0; j--) {
+			if ((m_cells[i] & mask) < (other.m_cells[i] & mask)) {
+				return false;
+			}
+			mask = mask >> 1;
+		}
+		mask = 1;
+		mask = mask << 7;
+	}
+	return true;
+}
+
+bool BoolVector::operator <(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	mask = mask << (m_cellSize - 1);
+	for (int i = m_cellCount - 1; i >= 0; i--) {
+		for (int j = m_cellSize - 1; j >= 0; j--) {
+			if ((m_cells[i] & mask) < (other.m_cells[i] & mask)) {
+				return true;
+			}
+			mask = mask >> 1;
+		}
+		mask = 1;
+		mask = mask << 7;
+	}
+	return false;
+}
+
+bool BoolVector::operator >(const BoolVector& other) const {
+	assert(m_cellSize == other.m_cellSize);
+	uint8_t mask = 1;
+	mask = mask << (m_cellSize - 1);
+	for (int i = m_cellCount - 1; i >= 0; i--) {
+		for (int j = m_cellSize - 1; j >= 0; j--) {
+			if ((m_cells[i] & mask) > (other.m_cells[i] & mask)) {
+				return true;
+			}
+			mask = mask >> 1;
+		}
+		mask = 1;
+		mask = mask << 7;
+	}
+	return false;
+}
+
+std::ostream& operator <<(std::ostream& stream, const BoolVector& vector)
+{
+	stream << "[";
+	for (int j = 0; j < vector.m_lenght + vector.m_insignificantRankCount; j++)
+	{
+		if (j % 8 == 0 && j != 0)
+			std::cout << "][";
+		std::cout << (bool)vector[j] << " ";
+	}
+	stream << "]" << std::endl;
+	return stream;
+}
+
+std::istream& operator >>(std::istream& stream, BoolVector& vector)
+{
+	char* str = new char[vector.Lenght()];
+	for (int i = 0; i < vector.Lenght(); i++)
+	{
+		stream >> str[i];
+	}
+	for (int i = 0; i < vector.Lenght(); i++)
+	{
+		if (str[i] != '0')
+			vector[i] = 1;
+		else
+			vector[i] = 0;
+	}
+	delete[]str;
+	return stream;
+}
+ 

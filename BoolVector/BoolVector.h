@@ -110,23 +110,11 @@ public:
 	BoolRank& operator=(const bool value);
 
 	operator bool() const;
-
-	//bool operator==(BoolRank& other)const;
-
-	//bool operator==(const bool value)const;
-
-	//bool operator~()const;
-
-	//bool operator&(const bool value)const;
-
-	//bool operator|(const bool value)const;
-
-	//bool operator^(const bool vale)const;
 private:
 	uint8_t* m_cell = nullptr;
 
 	uint8_t m_mask = 1 << 7;
 };
 
-std::istream& operator >>(std::istream& stream, const BoolVector& vector);
+std::istream& operator >>(std::istream& stream, BoolVector& vector);
 
