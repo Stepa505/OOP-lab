@@ -62,8 +62,14 @@ int Array<ItemType>::Size() const{
 
 template<typename ItemType>
 void Array<ItemType>::Resize(const int size) {
-	m_size = size;
-	m_array = new ItemType[m_size];
+	Array tmp;
+	tmp.m_size = size;
+	for (int i = 0; i < m_size; i++) {
+		tmp.m_array[i] = m_array[i];
+	}
+	swap(tmp);
+	delete[] tmp;
+	return *this;
 }
 
 template<typename ItemType>
@@ -109,16 +115,15 @@ bool Array<ItemType>::DeleteElementIndex(const int& index) {
 
 template<typename ItemType>
 bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
-	int k = 0;
-	for (int i = 0; i < m_size; i++) {
-		if (m_array[i] == value) {
-			DeleteElementIndex(i);
-			i--;
-			k++;
-		}
+	if (m_size = 0) {
+		return true;
 	}
-	if (k == 0) return false;
-	else return true;
+	else {
+		Array tmp(0);
+		swap(tmp);
+		delete[] tmp;
+		return true;
+	}
 }
 
 template<typename ItemType>
