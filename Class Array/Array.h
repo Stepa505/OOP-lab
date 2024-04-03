@@ -33,6 +33,8 @@ public:
 
 	bool DeleteAllValue(const ItemType& value);
 
+	bool Delete();
+
 	ItemType Max() const;
 
 	ItemType Min() const;

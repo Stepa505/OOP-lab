@@ -11,7 +11,11 @@ int main() {
 	puts("");
 	arr.Resize(9);
 	cout << arr;
-	//Array<int> arr2(arr);
+	puts("");
+	if (arr.DeleteAllValue(0)) {
+		cout << "All value have been deleted";
+	}
+	cout << arr;
 	//cout << arr2;
 	//puts("");
 	//Array<int> arr3(7);

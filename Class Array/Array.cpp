@@ -123,7 +123,7 @@ bool Array<ItemType>::DeleteElementIndex(const int& index) {
 }
 
 template<typename ItemType>
-bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
+bool Array<ItemType>::Delete() {
 	if (m_array == nullptr) {
 		return true;
 	}
@@ -132,6 +132,22 @@ bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
 		Swap(tmp);
 		return true;
 	}
+}
+
+template<typename ItemType>
+bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
+	Array tmp(m_size);
+	int size = 0;
+	for (int i = 0; i < m_size; i++) {
+		if (m_array[i] != value) {
+			tmp.m_array[i] = m_array[i];
+			size++;
+		}
+	}
+	if (size == m_size) return false;
+	tmp.Resize(size);
+	Swap(tmp);
+	return true;
 }
 
 template<typename ItemType>
