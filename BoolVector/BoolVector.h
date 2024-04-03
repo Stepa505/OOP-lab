@@ -101,9 +101,7 @@ private:
 class BoolVector::BoolRank
 {
 public:
-	BoolRank(UC* cell, const int maskoffset);
-
-	~BoolRank();
+	BoolRank(UC* cell, const int& maskoffset);
 
 	BoolRank& operator=(const BoolRank& other);
 

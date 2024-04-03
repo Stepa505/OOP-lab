@@ -44,7 +44,6 @@ BoolVector::BoolVector(const char* str) {
 	m_lenght = strlen(str);
 	m_cellCount = m_lenght / m_cellSize + bool(m_lenght % m_cellSize);
 	m_insignificantRankCount = (m_cellCount * m_cellSize) - m_lenght;
-	delete[] m_cells;
 	m_cells = new UC[m_cellCount];
 	for (int i = 0; i < m_lenght; i++) {
 		if (str[i] == '1') {
@@ -67,12 +66,8 @@ BoolVector::BoolRank::BoolRank(UC* cell, const int& maskoffset) {
 	m_mask = m_mask >> maskoffset;
 }
 
-BoolVector::BoolRank::~BoolRank() {
-	delete[] m_cell;
-}
-
 void BoolVector::Set1(const UI cell, const UI cell_pos) {
-	assert(cell >= 0 || cell < m_cellCount || cell_pos < m_cellSize);
+	assert(cell >= 0 && cell < m_cellCount && cell_pos < m_cellSize);
 	uint8_t mask = 1;
 	mask = mask << 7;
 	mask = mask >> cell_pos;
@@ -80,7 +75,7 @@ void BoolVector::Set1(const UI cell, const UI cell_pos) {
 }
 
 void BoolVector::Set0(const UI cell, const UI cell_pos) {
-	assert(cell >= 0 || cell < m_cellCount || cell_pos < m_cellSize);
+	assert(cell >= 0 && cell < m_cellCount && cell_pos < m_cellSize);
 	uint8_t mask = 1;
 	mask = mask << 7;
 	mask = mask >> cell_pos;
@@ -122,14 +117,14 @@ void BoolVector::Inverse() {
 }
 
 void BoolVector::Set1InRange(const UI left_border, const UI right_border) {
-	assert(left_border >= 0 || right_border < m_lenght);
+	assert(left_border >= 0 && right_border < m_lenght);
 	for (int i = left_border; i < right_border; i++) {
 		Set1(i / m_cellSize, i % m_cellSize);
 	}
 }
 
 void BoolVector::Set0InRange(const UI left_border, const UI right_border) {
-	assert(left_border >= 0 || right_border < m_lenght);
+	assert(left_border >= 0 && right_border < m_lenght);
 	for (int i = left_border; i < right_border; i++) {
 		Set0(i / m_cellSize, i % m_cellSize);
 	}
@@ -244,12 +239,12 @@ BoolVector BoolVector::operator =(const BoolVector& other) {
 }
 
 const BoolVector::BoolRank BoolVector:: operator [](const int& index) const {
-	assert(index >= 0 || index < m_lenght);
+	assert(index >= 0 && index < m_lenght);
 	return const BoolRank(m_cells + index / m_cellSize, index % m_cellSize);
 }
 
 BoolVector::BoolRank BoolVector::operator [](const int& index) {
-	assert(index >= 0 || index < m_lenght);
+	assert(index >= 0 && index < m_lenght);
 	return BoolRank(m_cells + index / m_cellSize, index % m_cellSize);
 }
 
