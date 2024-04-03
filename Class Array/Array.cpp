@@ -62,14 +62,23 @@ int Array<ItemType>::Size() const{
 
 template<typename ItemType>
 void Array<ItemType>::Resize(const int size) {
-	Array tmp;
-	tmp.m_size = size;
-	for (int i = 0; i < m_size; i++) {
-		tmp.m_array[i] = m_array[i];
+	Array tmp(size);
+	if (m_size < size) {
+		for (int i = 0; i < m_size; i++)
+		{
+			tmp.m_array[i] = m_array[i];
+		}
+		for (int i = m_size; i < size; i++) {
+			tmp.m_array[i] = 0;
+		}
 	}
-	swap(tmp);
-	delete[] tmp;
-	return *this;
+	else {
+		for (int i = 0; i < size; i++)
+		{
+			tmp.m_array[i] = m_array[i];
+		}
+	}
+	Swap(tmp);
 }
 
 template<typename ItemType>
@@ -115,13 +124,12 @@ bool Array<ItemType>::DeleteElementIndex(const int& index) {
 
 template<typename ItemType>
 bool Array<ItemType>::DeleteAllValue(const ItemType& value) {
-	if (m_size = 0) {
+	if (m_array == nullptr) {
 		return true;
 	}
 	else {
 		Array tmp(0);
-		swap(tmp);
-		delete[] tmp;
+		Swap(tmp);
 		return true;
 	}
 }
@@ -140,6 +148,7 @@ bool Array<ItemType>::InsertValue(const int index, const ItemType& value) {
 
 template<typename ItemType>
 ItemType Array<ItemType>::Max() const{
+	if (m_array == nullptr) return 0;
 	ItemType max = m_array[0];
 	for (int i = 1; i < m_size; i++) {
 		if (m_array[i] > max) max = m_array[i];
@@ -149,6 +158,7 @@ ItemType Array<ItemType>::Max() const{
 
 template<typename ItemType>
 ItemType Array<ItemType>::Min() const {
+	if (m_array == nullptr) return 0;
 	ItemType min = m_array[0];
 		for (int i = 1; i < m_size; i++) {
 			if (m_array[i] < min) min = m_array[i];
@@ -158,26 +168,32 @@ ItemType Array<ItemType>::Min() const {
 
 template<typename ItemType>
 bool Array<ItemType>:: operator ==(const Array& other) const {
-	int k = 0;
 	if (m_size == other.m_size) {
 		for (int i = 0; i < m_size; i++) {
-			if (m_array[i] == other.m_array[i]) k++;
+			if (m_array[i] != other.m_array[i]) {
+				return false;
+			}
 		}
 	}
-	if (k != m_size) return false;
-	else return true;
+	else return false;
+	return true;
 }
 
 template<typename ItemType>
 bool Array<ItemType>:: operator !=(const Array& other) const {
-	int k = 0;
 	if (m_size != other.m_size) {
+		return true;
+	}
+	else {
 		for (int i = 0; i < m_size; i++) {
-			if (m_array[i] != other.m_array[i]) k++;
+			if (m_array[i] == other.m_array[i]) {
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 	}
-	if (k != m_size) return false;
-	else return true;
 }
 
 template<typename ItemType>
