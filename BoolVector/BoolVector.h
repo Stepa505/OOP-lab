@@ -5,9 +5,8 @@
 class BoolVector
 {
 public:
-	using UI = unsigned int;
 
-	using UC = unsigned char;
+	using Cell = unsigned char; //байтовое представление символов
 
 	class BoolRank;
 
@@ -15,7 +14,7 @@ public:
 
 	BoolVector();
 
-	BoolVector(const bool value = false, const UI lenght = 0);
+	BoolVector(const bool value = false, const int lenght = 0);
 
 	BoolVector(BoolVector& other);
 
@@ -29,13 +28,13 @@ public:
 
 	void Inverse();
 
-	void Set1(const UI cell, const UI cell_pos);
+	void Set1(const int cell, const int cell_pos);
 
-	void Set0(const UI cell, const UI cell_pos);
+	void Set0(const int cell, const int cell_pos);
 
-	void Set1InRange(const UI cell_left, const UI cell_right);
+	void Set1InRange(const int cell_left, const int cell_right);
 
-	void Set0InRange(const UI cell_left, const UI cell_right);
+	void Set0InRange(const int cell_left, const int cell_right);
 
 	void Set1All();
 
@@ -87,13 +86,13 @@ public:
 
 	friend std::ostream& operator <<(std::ostream& stream, const BoolVector& vector);
 private:
-	UI m_lenght = 0;
+	int m_lenght = 0;
 
-	UI m_cellCount = 0;
+	int m_cellCount = 0;
 
 	uint8_t m_insignificantRankCount = 0;
 
-	UC* m_cells = nullptr;
+	Cell* m_cells = nullptr;
 
 	static const uint8_t m_cellSize = 8;
 };
@@ -101,7 +100,7 @@ private:
 class BoolVector::BoolRank
 {
 public:
-	BoolRank(UC* cell, const int& maskoffset);
+	BoolRank(Cell* cell, const int& maskoffset);
 
 	BoolRank& operator=(const BoolRank& other);
 
