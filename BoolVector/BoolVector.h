@@ -14,7 +14,7 @@ public:
 
 	BoolVector();
 
-	BoolVector(const bool value = false, const int lenght = 0);
+	BoolVector(const bool value, const int lenght);
 
 	BoolVector(BoolVector& other);
 
